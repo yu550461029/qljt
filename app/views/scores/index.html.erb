@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="logo-out">
+    <%=image_tag("qljtlogo.png", :size => "100x100")%>
+  </div>
+</div>
+
+<div class="row">
+  <%= form_tag("/scores/get_score_list", method: "post", multipart: true) do %>
+  <div class="input-group" style="margin:40px auto;width:50%">
+    <input type="text" class="form-control" name = "license" placeholder="请输入密码条">
+    <span class="input-group-btn">
+      <%= submit_tag("提交", :class => 'btn btn-primary') %>
+    </span>
+  </div>
+  <%end%>
+</div><!-- /.row -->
+<% if !notice.nil? %>
+<div class="div_small">
+<div class="alert alert-danger alert-dismissible fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+    <%=notice%>
+</div>
+</div>
+<% end %>

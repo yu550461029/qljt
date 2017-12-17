@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-md-3 col-md-offset-10">
+    <button type="button"  id="reset_license" class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-sm">生成密码条</button>
+    <a class="btn btn-info" href="/teams/export_license">下载密码条</a>
+  </div>
+</div>
+<div class="bs-example" data-example-id="bordered-table">
+  <h4>部门列表</h4>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>部门名称</th>
+        <th>部门描述</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @teams.each do |team| %>
+        <tr>
+          <th scope="row"><%=team.id%></th>
+          <td><%=team.name%></td>
+          <td><%=team.desc%></td>
+          <td>
+            <button type="button" class="btn btn-default" onclick="window.location.href='/teams/<%=team.id%>'">查看</button>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<script type="text/javascript">
+  var tree1 = $("#test-select").treeMultiselect({ enableSelectAll: true, sortable: true });
+  var tree2 = $("#test-select2").treeMultiselect({ enableSelectAll: true, sortable: true });
+  $(document).ready(function(){
+    $("#reset_license").click(function() {
+      $.post( "reset_license");
+    })
+  })
+</script>

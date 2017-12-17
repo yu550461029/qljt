@@ -1,0 +1,143 @@
+<div class="row" style="height:30px;">
+
+</div>
+<div class="div_center">
+  <h5>请依次对下面的员工进行评分，选择评分等级，A,B,C,D,E只能选择一项，评分等级选择完成后，输入得分</h5>
+</div>
+<% for i in @employee_list %>
+  <div class="employee_black">
+    <div class="div_center">
+      <h5><%=i["employee_name"]%>(<%=i["employee_team"]%>)</h5>
+      <div class="hidden-on" id="employee_id"><%=i["employee_id"]%></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6 col-md-4">选择评分</div>
+      <div class="col-xs-6 col-md-4">
+        <select name="level">
+          <option value ="1">非常好</option>
+          <option value ="2">好</option>
+          <option value="3">良</option>
+          <option value="4">及格</option>
+          <option value="5">不及格</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6 col-md-4 input-line">请输入90-100范围内分值</div>
+      <div class="col-xs-6 col-md-4">
+        <input class="input_border" type="text" name="" value="">
+      </div>
+    </div>
+    <div class="demo_line_02"></div>
+  </div>
+<%end%>
+  <div class="row">
+  <%= form_tag("/scores/save_employee_score", method: "post", multipart: true) do %>
+    <div class="button-center">
+      <input type="text"  name="license_key" class="hidden-on" value="<%=@license_key%>">
+      <input type="hidden" id="employee-data" name="employee_data" value="">
+      <button type="button" class="btn btn-primary btn-lg">提交</button>
+    </div>
+    <%end%>
+  </div>
+
+<script type="text/javascript">
+  $("select").change(function(){
+    if ($(this).val() == 1){
+      $(this).parent().parent().next().find(".input-line").text("请输入90-100范围内分值") ;
+    }else if ($(this).val() == 2) {
+      $(this).parent().parent().next().find(".input-line").text("请输入80-89范围内分值") ;
+    }else if ($(this).val() == 3) {
+      $(this).parent().parent().next().find(".input-line").text("请输入70-79范围内分值") ;
+    }else if ($(this).val() == 4){
+      $(this).parent().parent().next().find(".input-line").text("请输入60-69范围内分值") ;
+    }else if ($(this).val() == 5){
+      $(this).parent().parent().next().find(".input-line").text("请输入50-59范围内分值") ;
+    }
+  });
+  $("button").click(function () {
+    var employee_data = new Array()
+    var subflag = 1
+    $(".employee_black").each(function(){
+      score_data = new Object();
+      var employee_id = $(this).find("#employee_id").text();
+      var employee_score = $(this).find("input").val();
+      var employee_level = $(this).find("select").val();
+      if(employee_level == 1){
+        if (employee_score>=90 && employee_score<=100) {
+            score_data.employee_id = employee_id;
+            score_data.employee_score = employee_score;
+            score_data.employee_level = employee_level;
+            employee_data.push(JSON.stringify(score_data));
+        }else {
+          $(this).find("input")[0].focus(function(){
+            $(this).css("background-color","#FFFFCC");
+          });
+          alert("请输入正确的分数");
+          subflag = 0;
+          return false;
+        }
+      }else if (employee_level == 2) {
+        if (employee_score>=80 && employee_score<=89) {
+            score_data.employee_id = employee_id;
+            score_data.employee_score = employee_score;
+            score_data.employee_level = employee_level;
+            employee_data.push(JSON.stringify(score_data));
+        }else {
+          $(this).find("input")[0].focus(function(){
+            $(this).css("background-color","#FFFFCC");
+          });
+          alert("请输入正确的分数");
+          subflag = 0;
+          return false;
+        }
+      }else if (employee_level == 3) {
+        if (employee_score>=70 && employee_score<=79) {
+            score_data.employee_id = employee_id;
+            score_data.employee_score = employee_score;
+            score_data.employee_level = employee_level;
+            employee_data.push(JSON.stringify(score_data));
+        }else {
+          $(this).find("input")[0].focus(function(){
+            $(this).css("background-color","#FFFFCC");
+          });
+          subflag = 0
+          alert("请输入正确的分数");
+          return false;
+        }
+      }else if (employee_level == 4) {
+        if (employee_score>=60 && employee_score<=69) {
+            score_data.employee_id = employee_id;
+            score_data.employee_score = employee_score;
+            score_data.employee_level = employee_level;
+            employee_data.push(JSON.stringify(score_data));
+        }else {
+          $(this).find("input")[0].focus(function(){
+            $(this).css("background-color","#FFFFCC");
+          });
+          subflag = 0
+          alert("请输入正确的分数");
+          return false;
+        }
+      }else if (employee_level == 5) {
+        if (employee_score>=50 && employee_score<=59) {
+            score_data.employee_id = employee_id;
+            score_data.employee_score = employee_score;
+            score_data.employee_level = employee_level;
+            employee_data.push(JSON.stringify(score_data));
+        }else {
+          $(this).find("input")[0].focus(function(){
+            $(this).css("background-color","#FFFFCC");
+          });
+          subflag = 0
+          alert("请输入正确的分数");
+          return false;
+        }
+      }
+    });
+    if (subflag == 1){
+      $("#employee-data").val(JSON.stringify(employee_data));
+      $( "form" ).submit();
+    }
+  })
+</script>

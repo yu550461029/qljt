@@ -1,0 +1,8 @@
+class CreateAppraises < ActiveRecord::Migration[5.1]
+  def change
+    create_table :appraises do |t|
+
+      t.timestamps
+    end
+  end
+end

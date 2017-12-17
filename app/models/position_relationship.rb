@@ -1,0 +1,2 @@
+class PositionRelationship < ApplicationRecord
+end

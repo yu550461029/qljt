@@ -1,0 +1,59 @@
+#content{
+  background-color: #F0F5FB;
+}
+.top_center{
+  text-align:center;
+  margin:18px auto -15px 0;
+}
+.div_center{
+  text-align:left;
+  margin:0 auto;
+
+}
+.div_small{
+  text-align:center;
+  margin:0 auto;
+  width: 30%;
+}
+.button-center{
+  text-align:center;
+  margin:20px auto;
+}
+.demo_line_02{
+    height: 1px;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    margin-top: 5px;
+}
+.demo_line_02 span{
+    position: relative;
+    top: -8px;
+    background: #fff;
+    padding: 0 20px;
+
+}
+.hidden-on{
+  display: none;
+}
+.input_border{
+  border-bottom: 1px solid #dbdbdb;
+}
+.success-out{
+  text-align:center;
+  margin-top: 60px;
+}
+.success{
+  text-align:center;
+  width: 20%;
+}
+.logo-out{
+  text-align:center;
+  margin-top: 60px;
+}
+.logo-in{
+  text-align:center;
+  width: 20%;
+}
+.bg{
+  background-image: image-url("bg.png")
+}

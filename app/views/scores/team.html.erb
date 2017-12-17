@@ -1,0 +1,128 @@
+<div class="row" style="height:30px;">
+
+</div>
+<div class="div_center">
+  <h5>请依次对下面的部门进行评分，选择评分等级，A,B,C,D只能选择一项，评分等级选择完成后，输入得分</h5>
+</div>
+<% for i in @team_list %>
+  <div class="team_black">
+    <div class="div_center">
+      <h5><%=i["team_name"]%></h5>
+      <div class="hidden-on" id="team_id"><%=i["team_id"]%></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6 col-md-4">选择评分</div>
+      <div class="col-xs-6 col-md-4">
+        <select name="level">
+          <option value ="1">非常好</option>
+          <option value ="2">好</option>
+          <option value="3">良</option>
+          <option value="4">及格</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6 col-md-4 input-line">请输入90-100范围内分值</div>
+      <div class="col-xs-6 col-md-4">
+        <input class="input_border" type="text" name="" value="">
+      </div>
+    </div>
+    <div class="demo_line_02"></div>
+  </div>
+<%end%>
+  <div class="row">
+  <%= form_tag("/scores/save_team_score", method: "post", multipart: true) do %>
+    <div class="button-center">
+      <input type="text"  name="license_key" class="hidden-on" value="<%=@license_key%>">
+      <input type="hidden" id="team-data" name="team_data" value="">
+      <button type="button" class="btn btn-primary btn-lg">提交</button>
+    </div>
+    <%end%>
+  </div>
+
+<script type="text/javascript">
+  $("select").change(function(){
+    if ($(this).val() == 1){
+      $(this).parent().parent().next().find(".input-line").text("请输入90-100范围内分值") ;
+    }
+    else if ($(this).val() == 2) {
+      $(this).parent().parent().next().find(".input-line").text("请输入80-89范围内分值") ;
+    }
+    else if ($(this).val() == 3) {
+      $(this).parent().parent().next().find(".input-line").text("请输入70-79范围内分值") ;
+    }else  if ($(this).val() == 4){
+      $(this).parent().parent().next().find(".input-line").text("请输入60-69范围内分值") ;
+    }
+  });
+  $("button").click(function () {
+    var team_data = new Array()
+    var subflag = 1
+    $(".team_black").each(function(){
+      score_data = new Object();
+      var team_id = $(this).find("#team_id").text();
+      var team_score = $(this).find("input").val();
+      var team_level = $(this).find("select").val();
+      if(team_level == 1){
+        if (team_score>=90 && team_score<=100) {
+            score_data.team_id = team_id;
+            score_data.team_score = team_score;
+            score_data.team_level = team_level;
+            team_data.push(JSON.stringify(score_data));
+        }else {
+          $(this).find("input")[0].focus(function(){
+            $(this).find("input")[0].css("background-color","#FFFFCC");
+          });
+          subflag = 0
+          alert("请输入正确的分数");
+          return false;
+        }
+      }else if (team_level == 2) {
+        if (team_score>=80 && team_score<=89) {
+            score_data.team_id = team_id;
+            score_data.team_score = team_score;
+            score_data.team_level = team_level;
+            team_data.push(JSON.stringify(score_data));
+        }else {
+          $(this).find("input")[0].focus(function(){
+            $(this).find("input")[0].css("background-color","#FFFFCC");
+          });
+          subflag = 0
+          alert("请输入正确的分数");
+          return false;
+        }
+      }else if (team_level == 3) {
+        if (team_score>=70 && team_score<=79) {
+            score_data.team_id = team_id;
+            score_data.team_score = team_score;
+            score_data.team_level = team_level;
+            team_data.push(JSON.stringify(score_data));
+        }else {
+          $(this).find("input")[0].focus(function(){
+            $(this).find("input")[0].css("background-color","#FFFFCC");
+          });
+          subflag = 0
+          alert("请输入正确的分数");
+          return false;
+        }
+      }else if (team_level == 4) {
+        if (team_score>=60 && team_score<=69) {
+            score_data.team_id = team_id;
+            score_data.team_score = team_score;
+            score_data.team_level = team_level;
+            team_data.push(JSON.stringify(score_data));
+        }else {
+          $(this).find("input")[0].focus(function(){
+            $(this).find("input")[0].css("background-color","#FFFFCC");
+          });
+          subflag = 0
+          alert("请输入正确的分数");
+          return false;
+        }
+      }
+    });
+    if (subflag==1){
+      $("#team-data").val(JSON.stringify(team_data));
+      $( "form" ).submit();
+    }
+  })
+</script>

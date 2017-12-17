@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>齐鲁交通发展集团</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body style="background-color:#F1FAFC;">
+    <div class="container">
+      <div class="row">
+        <div class="top_center" ><h3 style="color:#282828">齐鲁交通发展集团有限公司</h3></div>
+        <div class="top_center"><h3 style="color:#282828">青岛分公司民主评议</h3></div>
+      </div>
+      <%= yield %>
+    </div>
+  </body>
+</html>
